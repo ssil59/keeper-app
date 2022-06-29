@@ -1,4 +1,4 @@
 node_modules
 Procfile
 .env
-src/notes.js
+notes.js
