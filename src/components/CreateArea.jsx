@@ -1,7 +1,11 @@
 import React, { useState } from "react";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
+import AddIcon from "@mui/icons-material/Add";
+import Fab from "@mui/material/Fab";
+import Zoom from "@mui/material/Zoom";
 
 function CreateArea(props) {
+  const [isExpanded, setExpanded] = useState(false);
+
   const [note, setNote] = useState({ title: "", content: "" });
 
   function handleClick(event) {
@@ -18,25 +22,34 @@ function CreateArea(props) {
     });
   }
 
+  function expand() {
+    setExpanded(true);
+  }
+
   return (
     <div>
-      <form>
-        <input
-          name="title"
-          onChange={handleChange}
-          placeholder="Title"
-          value={note.title}
-        />
+      <form className="create-note">
+        {isExpanded && (
+          <input
+            name="title"
+            onChange={handleChange}
+            placeholder="Title"
+            value={note.title}
+          />
+        )}
         <textarea
           name="content"
+          onClick={expand}
           onChange={handleChange}
           placeholder="Take a note..."
-          rows="3"
+          rows={isExpanded ? 3 : 1}
           value={note.content}
         />
-        <button onClick={handleClick}>
-          <AddCircleIcon />
-        </button>
+        <Zoom in={isExpanded}>
+          <Fab onClick={handleClick}>
+            <AddIcon />
+          </Fab>
+        </Zoom>
       </form>
     </div>
   );
